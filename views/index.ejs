@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/style.css">
+    <style>
+
+         body {
+            background-color: #faf5ff; /* Light purple background */
+            color: #1a202c; /* Dark gray text */
+            font-family: 'Georgia', serif;
+            overflow: auto;
+        }
+        body::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+} 
+
+
+        .hero {
+            background: url('sample3.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1{
+            color: #ffffff;
+        }
+                .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent !important;
+            transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* When scrolling down, navbar fades out */
+        .navbar.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* When scrolling up, navbar becomes visible with a black background */
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.9) !important; /* Semi-transparent black */
+            transform: translateY(0);
+            opacity: 1;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: white;
+        }
+        .navbar-brand {
+            margin-left: -10px; /* Adjust the value as needed */
+        }
+        .navbar-buttons {
+            margin-right: 30px; /* Move buttons more to the right */
+        }
+        .main-banner {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 15px;
+        }
+        .banner-content h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #2d3748; /* Dark text color */
+        }
+        .banner-content p {
+            font-size: 1.2rem;
+            color: #4a5568; /* Slightly lighter text */
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            color: #6b46c1; /* Purple shade */
+        }
+        .rounded-btn {
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: bold;
+        }
+        .outline-btn {
+            background-color: white;
+            color: #6b46c1;
+            border: 2px solid #6b46c1;
+        }
+        .solid-btn {
+            background-color: #6b46c1;
+            color: white;
+        }
+        .benefits-section {
+    background-color: #faf5ff; /* Light purple background */
+    color: #2d3748; /* Dark gray text */
+        }
+        .benefits-title {
+            font-size: 2rem;
+            font-family: 'Georgia', serif;
+        }
+        .benefits-text {
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .feature-text {
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-placeholder {
+            width: 100%;
+            min-height: 250px; /* More flexible height */
+            background-color: #f3e8ff; /* Light purple box */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-placeholder::before {
+            content: "🖼️";
+            font-size: 2rem;
+            color: #d6bcfa;
+        }
+        .team-section {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+        .team-member {
+            margin-bottom: 30px;
+        }
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: #ddd; /* Placeholder background */
+        }
+        .team-member h5 {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        .team-member p {
+            font-size: 14px;
+            color: #666;
+        }
+        .social-icons a {
+            margin: 5px;
+            color: #555;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+   <!-- Registration Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerModalLabel">Register</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Registration Form -->
+          <form action="/karuna" method="POST" novalidate class="needs-validation">
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="contact" class="form-label">Contact Number</label>
+              <input type="text" class="form-control" id="contact" name="contact" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-select" id="role" name="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="institute">Institute</option>
+                <option value="donor">Donor</option>
+                <option value="supplier">Supplier</option>
+              </select>
+            </div>
+  
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+        <div class="container">
+            <a class="navbar-brand" href="#">Logo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Get Involved</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">More Links</a></li>
+                </ul>
+                <div class="ms-auto navbar-buttons">
+                    <a href="#" class="btn btn-outline-light me-2">Help</a>
+                    <a href="#" class="btn btn-primary">Join</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero container-fluid position-relative">
+        <div class="overlay"></div>
+        <div class="container hero-content text-center text-md-start">
+            <h1 class="fw-bold">Connect with those in <br> need today</h1>
+            <p class="lead">Join our mission to support orphanages and elderly homes. Your <br> contributions can make a real difference in the lives of those who <br>need it most.</p>
+            <a href="#" class="btn btn-dark me-2">Learn More</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+
+        </div>
+    </div>
+    
+    <section class="main-banner">
+        <div class="container text-center">
+            <h1>Empowering Connections Between Donors and Institutes</h1>
+            <p>Our app bridges the gap between generous donors and the institutes that need support. By facilitating direct connections, we ensure that every contribution reaches its intended destination.</p>
+            
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="feature-icon">📦</div>
+                    <h5>Transparent Donation Process for Peace of Mind</h5>
+                    <p>Donors can track their contributions every step of the way.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-icon">📦</div>
+                    <h5>Support for Diverse Needs: Education and Health</h5>
+                    <p>Our platform caters to various charitable needs.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-icon">📦</div>
+                    <h5>Join Us in Making a Difference Today</h5>
+                    <p>Together, we can uplift lives and create impact.</p>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="#" class="btn outline-btn rounded-btn me-2">Learn More</a>
+                <a href="#" class="btn solid-btn rounded-btn">Sign Up</a>
+            </div>
+        </div>
+    </section>
+    <section class="benefits-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Content -->
+                <div class="col-md-6 text-center text-md-start">
+                    <h2 class="benefits-title fw-bold">Empower Change: Connect Donors with Those in Need Seamlessly and Safely</h2>
+                    <p class="benefits-text">
+                        Our platform fosters trust between donors and recipients, ensuring that every contribution directly supports those in need.
+                        By facilitating donations through local suppliers, we guarantee transparency and accountability in every transaction.
+                    </p>
+    
+                    <!-- Features Row -->
+                    <div class="row mt-4">
+                        <!-- Feature 1 -->
+                        <div class="col-md-6 d-flex align-items-start">
+                            <div class="icon-box me-3">
+                                <i class="bi bi-box h2"></i> <!-- Bootstrap Icon -->
+                            </div>
+                            <div>
+                                <h5 class="feature-title">Subheading one</h5>
+                                <p class="feature-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
+                                </p>
+                            </div>
+                        </div>
+    
+                        <!-- Feature 2 -->
+                        <div class="col-md-6 d-flex align-items-start">
+                            <div class="icon-box me-3">
+                                <i class="bi bi-box h2"></i> <!-- Bootstrap Icon -->
+                            </div>
+                            <div>
+                                <h5 class="feature-title">Subheading two</h5>
+                                <p class="feature-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Right Image Placeholder -->
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div class="image-placeholder rounded shadow-sm"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="team-section">
+        <div class="container">
+            <h2 class="mb-4">Our Team</h2>
+            <p class="mb-5">Meet the passionate individuals driving our mission forward.</p>
+            
+            <div class="row">
+                <% MemberData.forEach(member => { %>
+                    <div class="col-lg-3 col-md-6 col-sm-12 team-member">
+                        <img src="<%= member.image || 'https://via.placeholder.com/120' %>" alt="Profile Picture">
+                        <h5><%= member.name %></h5>
+                        <p><%= member.role %></p>
+                        <div class="social-icons">
+                            <% if (member.linkedin) { %> <a href="<%= member.linkedin %>" target="_blank">🔗</a> <% } %>
+                            <% if (member.twitter) { %> <a href="<%= member.twitter %>" target="_blank">🐦</a> <% } %>
+                            <% if (member.website) { %> <a href="<%= member.website %>" target="_blank">🌐</a> <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+    <script >
+          document.addEventListener("DOMContentLoaded", function () {
+    let lastScrollY = window.scrollY;
+    let navbar = document.querySelector(".navbar");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled"); // Adds background
+        } else {
+            navbar.classList.remove("scrolled"); // Removes background when at top
+        }
+
+        if (window.scrollY > lastScrollY) {
+            navbar.classList.add("hidden"); // Hides navbar when scrolling down
+        } else {
+            navbar.classList.remove("hidden"); // Shows navbar when scrolling up
+        }
+
+        lastScrollY = window.scrollY;
+    });
+});
+
+    </script>
+    <script src="/js/script.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
