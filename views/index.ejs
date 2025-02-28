@@ -12,6 +12,7 @@
             color: #1a202c; /* Dark gray text */
             font-family: 'Georgia', serif;
             overflow: auto;
+            top: 0px !important;
         }
         body::-webkit-scrollbar {
     display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
@@ -48,9 +49,15 @@
             width: 100%;
             background: transparent !important;
             transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out;
-            z-index: 1000;
+            z-index: 9999;
         }
-
+        #google_translate_element {
+        z-index: 1000; /* Ensure Google Translate element is below the navbar */
+        position: relative;
+    }
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
         /* When scrolling down, navbar fades out */
         .navbar.hidden {
             transform: translateY(-100%);
@@ -271,8 +278,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-3">
                     <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Institutes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Donor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://localhost:3000/user/institute">Institutes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="">Donor</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">suppliers</a></li>
                 </ul>
                 <div class="ms-auto navbar-buttons">
@@ -451,6 +458,16 @@
           </div>
         </div>
       </footer>
+      <div id="google_translate_element"></div>
+
+   <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script >
           document.addEventListener("DOMContentLoaded", function () {
     let lastScrollY = window.scrollY;
